@@ -6,15 +6,20 @@
     <title>🍎 Apple Leaf Disease Detection - AI-Powered Diagnosis</title>
     <style>
         :root {
-            --primary: #4CAF50;
-            --primary-dark: #388E3C;
-            --secondary: #2196F3;
-            --danger: #f44336;
-            --warning: #ff9800;
-            --info: #17a2b8;
-            --dark: #2c3e50;
-            --light: #f8f9fa;
-            --gray: #6c757d;
+            --primary: #2E7D32;
+            --primary-dark: #1B5E20;
+            --primary-light: #4CAF50;
+            --secondary: #1976D2;
+            --danger: #D32F2F;
+            --warning: #F57C00;
+            --info: #0288D1;
+            --dark: #212121;
+            --light: #F5F5F5;
+            --gray: #757575;
+            --success: #388E3C;
+            --card-bg: #FFFFFF;
+            --header-bg: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+            --footer-bg: #1B5E20;
         }
         
         * {
@@ -47,11 +52,12 @@
         }
         
         header {
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            background: var(--header-bg);
             color: white;
             padding: 30px;
             text-align: center;
             position: relative;
+            border-bottom: 5px solid var(--primary-dark);
         }
         
         .header-content {
@@ -59,6 +65,7 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
+            gap: 20px;
         }
         
         .logo {
@@ -70,17 +77,20 @@
         .logo-icon {
             font-size: 2.5rem;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+            color: #FFD700;
         }
         
         .header-text h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 10px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: white;
         }
         
         .header-text p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.9;
+            color: #E0E0E0;
         }
         
         .stats-banner {
@@ -90,28 +100,46 @@
             justify-content: center;
             margin-top: 20px;
             padding: 15px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
         .stat-item {
             text-align: center;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            min-width: 120px;
+            transition: transform 0.3s, background 0.3s;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.2);
         }
         
         .stat-value {
             font-size: 1.8rem;
             font-weight: bold;
-            color: white;
+            color: #FFD700;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .tabs-container {
             background: var(--light);
             padding: 0 20px;
+            border-bottom: 2px solid var(--primary-light);
         }
         
         .tabs {
@@ -136,10 +164,14 @@
             transition: all 0.3s;
             border-bottom: 3px solid transparent;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .tab:hover {
             color: var(--primary);
+            background: rgba(76, 175, 80, 0.1);
         }
         
         .tab.active {
@@ -151,6 +183,7 @@
         .main-content {
             padding: 30px;
             min-height: 600px;
+            background: #FAFAFA;
         }
         
         .tab-content {
@@ -175,19 +208,25 @@
         }
         
         .card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border: 1px solid #e9ecef;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border: 1px solid #E0E0E0;
             height: 100%;
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
         }
         
         .card-title {
             font-size: 1.4rem;
-            color: var(--dark);
+            color: var(--primary-dark);
             margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 2px solid var(--primary);
@@ -201,13 +240,13 @@
         }
         
         .upload-zone {
-            border: 3px dashed #ced4da;
+            border: 3px dashed #BDBDBD;
             border-radius: 12px;
             padding: 40px 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
-            background: #f8f9fa;
+            background: #F5F5F5;
             margin-bottom: 20px;
             flex: 1;
             display: flex;
@@ -218,7 +257,7 @@
         
         .upload-zone:hover, .upload-zone.drag-over {
             border-color: var(--primary);
-            background: #f0fff0;
+            background: #E8F5E9;
             transform: translateY(-2px);
         }
         
@@ -248,15 +287,21 @@
             gap: 8px;
             margin: 5px;
             text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.3);
+            background: var(--primary-dark);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
         }
         
         .btn:disabled {
-            background: #adb5bd;
+            background: #BDBDBD;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
@@ -266,16 +311,36 @@
             background: var(--secondary);
         }
         
+        .btn-secondary:hover {
+            background: #1565C0;
+            box-shadow: 0 6px 20px rgba(25, 118, 210, 0.3);
+        }
+        
         .btn-warning {
             background: var(--warning);
+        }
+        
+        .btn-warning:hover {
+            background: #EF6C00;
+            box-shadow: 0 6px 20px rgba(245, 124, 0, 0.3);
         }
         
         .btn-danger {
             background: var(--danger);
         }
         
+        .btn-danger:hover {
+            background: #C62828;
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.3);
+        }
+        
         .btn-info {
             background: var(--info);
+        }
+        
+        .btn-info:hover {
+            background: #0277BD;
+            box-shadow: 0 6px 20px rgba(2, 136, 209, 0.3);
         }
         
         .image-preview {
@@ -285,6 +350,7 @@
             margin: 15px 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             object-fit: contain;
+            border: 2px solid var(--primary-light);
         }
         
         .results-container {
@@ -300,6 +366,7 @@
             margin-bottom: 20px;
             animation: slideIn 0.5s ease;
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
         @keyframes slideIn {
@@ -330,11 +397,12 @@
             margin: 20px 0;
             overflow: hidden;
             position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
         
         .confidence-fill {
             height: 100%;
-            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            background: linear-gradient(90deg, #4CAF50, #8BC34A, #CDDC39);
             border-radius: 12px;
             transition: width 1s ease;
             position: relative;
@@ -372,18 +440,21 @@
             font-weight: bold;
             margin: 5px 0;
             text-transform: uppercase;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
-        .severity-high { background: #ff4444; }
-        .severity-medium { background: #ffbb33; color: #333; }
-        .severity-low { background: #00C851; }
+        .severity-high { background: #FF5252; }
+        .severity-medium { background: #FFB74D; color: #333; }
+        .severity-low { background: #4CAF50; }
+        .severity-none { background: #66BB6A; }
         
         .info-box {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.15);
             padding: 20px;
             border-radius: 10px;
             margin: 15px 0;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
         .action-buttons {
@@ -410,12 +481,17 @@
             border-radius: 6px;
             transition: all 0.3s;
             font-weight: 600;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .treatment-tab:hover {
+            background: rgba(255,255,255,0.2);
         }
         
         .treatment-tab.active {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.3);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         
         .treatment-content {
@@ -441,13 +517,15 @@
             margin-left: 20px;
             margin-bottom: 8px;
             position: relative;
+            padding-left: 10px;
         }
         
         .treatment-item::before {
             content: "•";
             position: absolute;
             left: -15px;
-            color: white;
+            color: #FFD700;
+            font-size: 1.2rem;
         }
         
         .loading {
@@ -478,9 +556,10 @@
         footer {
             text-align: center;
             padding: 30px;
-            background: var(--dark);
+            background: var(--footer-bg);
             color: white;
             margin-top: 30px;
+            border-top: 5px solid var(--primary-dark);
         }
         
         .footer-content {
@@ -511,6 +590,7 @@
             border-radius: 10px;
             border: 3px solid var(--primary);
             display: none;
+            background: #000;
         }
         
         .camera-controls {
@@ -528,18 +608,20 @@
         }
         
         .history-item {
-            background: #f8f9fa;
+            background: #F5F5F5;
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 10px;
             border-left: 4px solid var(--primary);
             cursor: pointer;
             transition: all 0.3s;
+            border: 1px solid #E0E0E0;
         }
         
         .history-item:hover {
-            background: #e9ecef;
+            background: #E8F5E9;
             transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         .diseases-grid {
@@ -550,19 +632,21 @@
         }
         
         .disease-item {
-            background: #f8f9fa;
+            background: #F5F5F5;
             padding: 20px;
             border-radius: 10px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
             border: 2px solid transparent;
+            border: 1px solid #E0E0E0;
         }
         
         .disease-item:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
         }
         
         .disease-icon {
@@ -579,23 +663,25 @@
         }
         
         .stat-card {
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
             padding: 20px;
             border-radius: 10px;
             text-align: center;
             border: 2px solid transparent;
             transition: all 0.3s;
+            border: 1px solid #A5D6A7;
         }
         
         .stat-card:hover {
             border-color: var(--primary);
             transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
         .stat-value {
             font-size: 2.5rem;
             font-weight: bold;
-            color: var(--primary);
+            color: var(--primary-dark);
             margin-bottom: 5px;
         }
         
@@ -605,7 +691,7 @@
         }
         
         .report-content {
-            background: #f8f9fa;
+            background: #F5F5F5;
             padding: 20px;
             border-radius: 10px;
             font-family: 'Courier New', monospace;
@@ -613,6 +699,7 @@
             max-height: 400px;
             overflow-y: auto;
             margin-top: 20px;
+            border: 1px solid #E0E0E0;
         }
         
         .notification {
@@ -629,6 +716,9 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 400px;
         }
         
         @keyframes slideInRight {
@@ -643,19 +733,19 @@
         }
         
         .notification.success {
-            background: var(--primary);
+            background: rgba(76, 175, 80, 0.9);
         }
         
         .notification.error {
-            background: var(--danger);
+            background: rgba(211, 47, 47, 0.9);
         }
         
         .notification.info {
-            background: var(--info);
+            background: rgba(2, 136, 209, 0.9);
         }
         
         .notification.warning {
-            background: var(--warning);
+            background: rgba(245, 124, 0, 0.9);
         }
         
         .progress-bar {
@@ -674,6 +764,35 @@
             transition: width 0.3s ease;
         }
         
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .main-content {
@@ -688,7 +807,12 @@
             }
             
             .stats-banner {
-                gap: 15px;
+                gap: 10px;
+            }
+            
+            .stat-item {
+                min-width: 100px;
+                padding: 8px 15px;
             }
             
             .tab {
@@ -742,6 +866,16 @@
     <!-- Notifications Container -->
     <div id="notifications"></div>
     
+    <!-- Modal for detailed view -->
+    <div class="modal" id="diseaseModal">
+        <div class="modal-content">
+            <div id="modalContent"></div>
+            <button class="btn btn-danger" onclick="closeModal()" style="margin-top: 20px; width: 100%;">
+                <i class="fas fa-times"></i> Close
+            </button>
+        </div>
+    </div>
+    
     <div class="container">
         <header>
             <div class="header-content">
@@ -766,7 +900,7 @@
                         <div class="stat-label">Detections</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value" id="systemStatus">Online</div>
+                        <div class="stat-value" id="systemStatus" style="color: #4CAF50;">Online</div>
                         <div class="stat-label">Status</div>
                     </div>
                 </div>
@@ -866,10 +1000,10 @@
                                 <i class="fas fa-camera"></i> Capture
                             </button>
                             <button class="btn btn-warning" onclick="switchCamera()" id="switchCameraBtn" disabled>
-                                <i class="fas fa-sync-alt"></i> Switch
+                                <i class="fas fa-sync-alt"></i> Switch Camera
                             </button>
                             <button class="btn btn-danger" onclick="stopCamera()" id="stopCameraBtn" disabled>
-                                <i class="fas fa-stop"></i> Stop
+                                <i class="fas fa-stop"></i> Stop Camera
                             </button>
                         </div>
                         
@@ -916,6 +1050,17 @@
             <div id="diseases-tab" class="tab-content">
                 <div class="card">
                     <h2 class="card-title"><i class="fas fa-bug"></i> Diseases Database</h2>
+                    <div class="action-buttons">
+                        <button class="btn" onclick="loadDiseasesFromAPI()">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                        <button class="btn btn-secondary" onclick="showAllDiseases()">
+                            <i class="fas fa-list"></i> View All
+                        </button>
+                        <button class="btn btn-info" onclick="showHealthyInfo()">
+                            <i class="fas fa-heart"></i> Healthy Leaf Info
+                        </button>
+                    </div>
                     <div class="diseases-grid" id="diseasesGrid">
                         <!-- Diseases will be loaded here -->
                     </div>
@@ -926,6 +1071,17 @@
             <div id="prevention-tab" class="tab-content">
                 <div class="card">
                     <h2 class="card-title"><i class="fas fa-shield-alt"></i> Prevention Guide</h2>
+                    <div class="action-buttons">
+                        <button class="btn" onclick="loadPreventionGuide()">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                        <button class="btn btn-secondary" onclick="showSeasonalGuide()">
+                            <i class="fas fa-calendar-alt"></i> Seasonal Guide
+                        </button>
+                        <button class="btn btn-info" onclick="showGeneralPrevention()">
+                            <i class="fas fa-lightbulb"></i> General Tips
+                        </button>
+                    </div>
                     <div id="preventionContent">
                         <div class="loading">
                             <i class="fas fa-seedling" style="font-size: 3rem; color: #4CAF50; margin-bottom: 20px;"></i>
@@ -948,6 +1104,9 @@
                         </button>
                         <button class="btn btn-warning" onclick="printReport()">
                             <i class="fas fa-print"></i> Print
+                        </button>
+                        <button class="btn btn-info" onclick="showReportHelp()">
+                            <i class="fas fa-question-circle"></i> Help
                         </button>
                     </div>
                     
@@ -984,13 +1143,26 @@
                     
                     <div style="margin-top: 30px;">
                         <h3 style="margin-bottom: 15px;"><i class="fas fa-info-circle"></i> System Information</h3>
-                        <div class="info-box" style="background: #e8f5e9; color: #333;">
+                        <div class="info-box" style="background: #E8F5E9; color: #333; border: 1px solid #C8E6C9;">
                             <p><strong>Version:</strong> Apple Leaf Disease Detection v3.2</p>
                             <p><strong>Model Accuracy:</strong> 97.7%</p>
                             <p><strong>Detectable Diseases:</strong> <span id="statTotalDiseases">9</span></p>
                             <p><strong>Last Updated:</strong> <span id="lastUpdated"></span></p>
-                            <p><strong>API Status:</strong> <span id="apiStatus">Connected</span></p>
+                            <p><strong>API Status:</strong> <span id="apiStatus" style="color: #4CAF50;">Connected</span></p>
                             <p><strong>Storage:</strong> Local Storage (5MB)</p>
+                            <p><strong>Model Status:</strong> <span id="modelStatus">Ready</span></p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <h3 style="margin-bottom: 15px;"><i class="fas fa-chart-pie"></i> Additional Statistics</h3>
+                        <div class="action-buttons">
+                            <button class="btn" onclick="updateStatistics()">
+                                <i class="fas fa-sync"></i> Update Stats
+                            </button>
+                            <button class="btn btn-secondary" onclick="showDetailedStats()">
+                                <i class="fas fa-chart-line"></i> Detailed Stats
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1000,25 +1172,25 @@
         <footer>
             <div class="footer-content">
                 <div>
-                    <h3 style="margin-bottom: 10px;">Apple Leaf Disease Detection System v3.2</h3>
-                    <p>AI-powered diagnosis with comprehensive treatment recommendations</p>
+                    <h3 style="margin-bottom: 10px; color: white;">Apple Leaf Disease Detection System v3.2</h3>
+                    <p style="color: #E0E0E0;">AI-powered diagnosis with comprehensive treatment recommendations</p>
                 </div>
                 <div class="footer-stats">
-                    <div class="stat-item">
+                    <div class="stat-item" style="background: rgba(255,255,255,0.1);">
                         <div class="stat-value">9</div>
                         <div class="stat-label">Diseases</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item" style="background: rgba(255,255,255,0.1);">
                         <div class="stat-value">97.7%</div>
                         <div class="stat-label">Accuracy</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item" style="background: rgba(255,255,255,0.1);">
                         <div class="stat-value">24/7</div>
                         <div class="stat-label">Available</div>
                     </div>
                 </div>
             </div>
-            <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #BDBDBD;">
                 <i class="fas fa-lightbulb"></i> For best results, use clear images of apple leaves
             </p>
         </footer>
@@ -1034,7 +1206,8 @@
             currentDetection: null,
             diseasesData: null,
             cameraActive: false,
-            capturedImage: null
+            capturedImage: null,
+            currentTab: 'detection'
         };
         
         // DOM elements
@@ -1052,7 +1225,9 @@
             diseasesGrid: document.getElementById('diseasesGrid'),
             preventionContent: document.getElementById('preventionContent'),
             reportContent: document.getElementById('reportContent'),
-            notifications: document.getElementById('notifications')
+            notifications: document.getElementById('notifications'),
+            diseaseModal: document.getElementById('diseaseModal'),
+            modalContent: document.getElementById('modalContent')
         };
         
         // Initialize application
@@ -1083,6 +1258,9 @@
             
             // Show welcome notification
             showNotification('System initialized successfully!', 'success');
+            
+            // Initialize model status
+            updateModelStatus();
         });
         
         // Tab management
@@ -1101,7 +1279,13 @@
             document.getElementById(`${tabName}-tab`).classList.add('active');
             
             // Add active class to clicked tab
-            event.currentTarget.classList.add('active');
+            const activeTab = document.querySelector(`.tab[onclick="switchTab('${tabName}')"]`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+            
+            // Update current tab
+            state.currentTab = tabName;
             
             // Handle tab-specific actions
             switch(tabName) {
@@ -1113,8 +1297,18 @@
                 case 'prevention':
                     loadPreventionGuide();
                     break;
+                case 'diseases':
+                    if (!state.diseasesData) {
+                        loadDiseasesFromAPI();
+                    } else {
+                        renderDiseasesGrid();
+                    }
+                    break;
                 case 'stats':
                     updateStatistics();
+                    break;
+                case 'reports':
+                    // Nothing to do here
                     break;
             }
             
@@ -1181,10 +1375,8 @@
         
         // Camera functions
         function setupCameraControls() {
-            document.getElementById('startCameraBtn').addEventListener('click', startCamera);
-            document.getElementById('captureBtn').addEventListener('click', capturePhoto);
-            document.getElementById('switchCameraBtn').addEventListener('click', switchCamera);
-            document.getElementById('stopCameraBtn').addEventListener('click', stopCamera);
+            // Event listeners are already set in HTML
+            console.log('Camera controls initialized');
         }
         
         async function startCamera() {
@@ -1221,6 +1413,9 @@
             elements.cameraPreview.srcObject = null;
             elements.cameraPreview.style.display = 'none';
             state.cameraActive = false;
+            
+            // Hide capture preview
+            elements.capturePreviewContainer.classList.add('hidden');
             
             // Update button states
             updateCameraButtons(false);
@@ -1271,6 +1466,7 @@
         
         function retakePhoto() {
             elements.capturePreviewContainer.classList.add('hidden');
+            showNotification('Ready to capture again', 'info');
         }
         
         function updateCameraButtons(active) {
@@ -1334,7 +1530,8 @@
                         timestamp: new Date().toISOString(),
                         imageName: state.selectedImage.name,
                         treatment: data.treatment,
-                        prediction: data.prediction
+                        prediction: data.prediction,
+                        fullData: data
                     };
                     
                     // Save to history
@@ -1423,13 +1620,13 @@
                     </div>
                     
                     <div class="treatment-tabs">
-                        <div class="treatment-tab active" onclick="switchTreatmentTab('cure')">
+                        <div class="treatment-tab active" onclick="switchTreatmentTab('cure', this)">
                             <i class="fas fa-stethoscope"></i> Cure & Treatment
                         </div>
-                        <div class="treatment-tab" onclick="switchTreatmentTab('prevention')">
+                        <div class="treatment-tab" onclick="switchTreatmentTab('prevention', this)">
                             <i class="fas fa-shield-alt"></i> Prevention
                         </div>
-                        <div class="treatment-tab" onclick="switchTreatmentTab('details')">
+                        <div class="treatment-tab" onclick="switchTreatmentTab('details', this)">
                             <i class="fas fa-info-circle"></i> Details
                         </div>
                     </div>
@@ -1502,12 +1699,12 @@
             elements.resultsContent.innerHTML = html;
         }
         
-        function switchTreatmentTab(tabName) {
+        function switchTreatmentTab(tabName, element) {
             // Update tabs
             document.querySelectorAll('.treatment-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            event.currentTarget.classList.add('active');
+            element.classList.add('active');
             
             // Update content
             document.querySelectorAll('.treatment-content').forEach(content => {
@@ -1532,7 +1729,7 @@
             if (state.detectionHistory.length === 0) {
                 elements.historyList.innerHTML = `
                     <p style="text-align: center; padding: 40px; color: #666;">
-                        No detection history yet
+                        No detection history yet. Upload an image to get started!
                     </p>
                 `;
                 return;
@@ -1598,12 +1795,14 @@
         // Diseases database
         async function loadDiseasesFromAPI() {
             try {
+                showNotification('Loading diseases database...', 'info');
                 const response = await fetch('/api/diseases');
                 const data = await response.json();
                 
                 if (data.status === 'success') {
                     state.diseasesData = data.diseases;
                     renderDiseasesGrid();
+                    showNotification('Diseases loaded successfully', 'success');
                 }
             } catch (error) {
                 console.error('Error loading diseases:', error);
@@ -1613,58 +1812,68 @@
                         type: 'fungal', 
                         description: 'Dark brown to black spots with concentric rings on leaves and fruit',
                         symptoms: ['Dark brown to black circular spots', 'Concentric rings within spots', 'Yellow halos around spots'],
-                        prevention: ['Remove infected leaves', 'Improve air circulation', 'Avoid overhead watering']
+                        prevention: ['Remove infected leaves', 'Improve air circulation', 'Avoid overhead watering'],
+                        severity: 'medium'
                     },
                     'Brown spot': { 
                         type: 'fungal', 
                         description: 'Circular brown spots with yellow halos on leaves',
                         symptoms: ['Circular brown spots', 'Yellow halos around spots', 'Premature leaf drop'],
-                        prevention: ['Use resistant varieties', 'Proper spacing between plants', 'Regular fungicide application']
+                        prevention: ['Use resistant varieties', 'Proper spacing between plants', 'Regular fungicide application'],
+                        severity: 'medium'
                     },
                     'Frogeye leaf spot': { 
                         type: 'fungal', 
                         description: 'Frog-eye shaped spots on leaves and cankers on branches',
                         symptoms: ['Small gray spots with purple margins', 'Spots enlarge to form "frog-eye" pattern', 'Cankers on branches'],
-                        prevention: ['Prune infected branches', 'Apply fungicides during growing season', 'Remove fallen leaves']
+                        prevention: ['Prune infected branches', 'Apply fungicides during growing season', 'Remove fallen leaves'],
+                        severity: 'high'
                     },
                     'Grey spot': { 
                         type: 'fungal', 
                         description: 'Grayish spots with purple margins on leaves',
                         symptoms: ['Grayish circular spots', 'Purple or brown margins', 'Spots may coalesce'],
-                        prevention: ['Avoid dense planting', 'Use preventative fungicides', 'Remove infected plant material']
+                        prevention: ['Avoid dense planting', 'Use preventative fungicides', 'Remove infected plant material'],
+                        severity: 'low'
                     },
                     'Health': { 
                         type: 'healthy', 
                         description: 'Healthy apple leaf with no disease symptoms',
                         symptoms: ['Vibrant green color', 'Normal leaf shape', 'No spots or discoloration'],
-                        prevention: ['Regular monitoring', 'Proper fertilization', 'Adequate watering']
+                        prevention: ['Regular monitoring', 'Proper fertilization', 'Adequate watering'],
+                        severity: 'none'
                     },
                     'Mosaic': { 
                         type: 'viral', 
                         description: 'Yellow mosaic patterns on leaves, stunted growth',
                         symptoms: ['Yellow mosaic patterns', 'Leaf distortion', 'Stunted plant growth'],
-                        prevention: ['Use virus-free planting material', 'Control aphid vectors', 'Remove infected plants']
+                        prevention: ['Use virus-free planting material', 'Control aphid vectors', 'Remove infected plants'],
+                        severity: 'high'
                     },
                     'Powdery mildew': { 
                         type: 'fungal', 
                         description: 'White powdery growth on leaves, shoots, and sometimes fruit',
                         symptoms: ['White powdery coating', 'Leaf curling', 'Reduced photosynthesis'],
-                        prevention: ['Plant in sunny locations', 'Improve air circulation', 'Use resistant varieties']
+                        prevention: ['Plant in sunny locations', 'Improve air circulation', 'Use resistant varieties'],
+                        severity: 'medium'
                     },
                     'Rust': { 
                         type: 'fungal', 
                         description: 'Orange or yellow rust pustules on leaves, often with alternate hosts',
                         symptoms: ['Orange or yellow pustules', 'Leaf yellowing', 'Premature defoliation'],
-                        prevention: ['Remove alternate hosts', 'Apply fungicides', 'Space plants properly']
+                        prevention: ['Remove alternate hosts', 'Apply fungicides', 'Space plants properly'],
+                        severity: 'high'
                     },
                     'Scab': { 
                         type: 'fungal', 
                         description: 'Olive-green to black spots on leaves and fruit, corky lesions',
                         symptoms: ['Olive-green spots', 'Corky lesions on fruit', 'Leaf distortion'],
-                        prevention: ['Remove fallen leaves', 'Apply fungicides in spring', 'Use resistant cultivars']
+                        prevention: ['Remove fallen leaves', 'Apply fungicides in spring', 'Use resistant cultivars'],
+                        severity: 'high'
                     }
                 };
                 renderDiseasesGrid();
+                showNotification('Loaded diseases from cache', 'info');
             }
         }
         
@@ -1675,22 +1884,28 @@
             for (const [diseaseName, diseaseInfo] of Object.entries(state.diseasesData)) {
                 const isHealthy = diseaseName === 'Health';
                 const icon = isHealthy ? 'fas fa-heart' : 'fas fa-bug';
-                const color = isHealthy ? '#4CAF50' : diseaseInfo.type === 'viral' ? '#9C27B0' : '#ff9800';
+                const color = isHealthy ? '#4CAF50' : diseaseInfo.type === 'viral' ? '#9C27B0' : diseaseInfo.type === 'fungal' ? '#F57C00' : '#2196F3';
+                const severityClass = diseaseInfo.severity ? `severity-${diseaseInfo.severity}` : '';
                 
                 html += `
                     <div class="disease-item" onclick="showDiseaseDetailsModal('${diseaseName}')">
                         <div class="disease-icon" style="color: ${color};">
                             <i class="${icon}"></i>
                         </div>
-                        <h3>${diseaseName}</h3>
-                        <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                        <h3 style="color: ${color};">${diseaseName}</h3>
+                        <p style="font-size: 0.9rem; color: #666; margin-top: 10px; min-height: 60px;">
                             ${diseaseInfo.description || 'No description available'}
                         </p>
-                        <div style="margin-top: 15px;">
+                        <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
                             <span style="font-size: 0.8rem; background: ${color}20; 
                                    color: ${color}; padding: 3px 10px; border-radius: 15px;">
                                 ${diseaseInfo.type || 'Unknown'}
                             </span>
+                            ${diseaseInfo.severity ? `
+                                <span class="severity-badge ${severityClass}" style="font-size: 0.7rem; padding: 2px 8px;">
+                                    ${diseaseInfo.severity.toUpperCase()}
+                                </span>
+                            ` : ''}
                         </div>
                     </div>
                 `;
@@ -1699,144 +1914,100 @@
             elements.diseasesGrid.innerHTML = html;
         }
         
-        // New function to show disease details in a modal or directly in results
+        function showAllDiseases() {
+            renderDiseasesGrid();
+            showNotification('Showing all diseases', 'info');
+        }
+        
+        function showHealthyInfo() {
+            showDiseaseDetailsModal('Health');
+        }
+        
+        // Disease details modal
         function showDiseaseDetailsModal(diseaseName) {
-            const diseaseInfo = state.diseasesData[diseaseName];
-            if (!diseaseInfo) return;
+            const diseaseInfo = state.diseasesData ? state.diseasesData[diseaseName] : null;
+            if (!diseaseInfo) {
+                showNotification('Disease information not available', 'error');
+                return;
+            }
             
             const isHealthy = diseaseName === 'Health';
             const icon = isHealthy ? 'fas fa-heart' : 'fas fa-disease';
-            const color = isHealthy ? '#4CAF50' : diseaseInfo.type === 'viral' ? '#9C27B0' : '#ff9800';
+            const color = isHealthy ? '#4CAF50' : diseaseInfo.type === 'viral' ? '#9C27B0' : diseaseInfo.type === 'fungal' ? '#F57C00' : '#2196F3';
+            const severityClass = diseaseInfo.severity ? `severity-${diseaseInfo.severity}` : '';
             
-            let detailHtml = `
-                <div class="disease-card">
-                    <div class="disease-name">
-                        <i class="${icon}" style="color: ${color};"></i> ${diseaseName}
-                        <span style="font-size: 0.9rem; background: rgba(255,255,255,0.2); 
-                               color: white; padding: 3px 10px; border-radius: 15px; margin-left: 10px;">
-                            ${diseaseInfo.type || 'Unknown'}
+            let modalHtml = `
+                <h2 style="color: ${color}; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <i class="${icon}"></i> ${diseaseName}
+                    ${diseaseInfo.severity ? `
+                        <span class="severity-badge ${severityClass}" style="font-size: 0.8rem; padding: 4px 12px;">
+                            ${diseaseInfo.severity.toUpperCase()}
                         </span>
-                    </div>
-                    
-                    <div class="info-box">
-                        <p><i class="fas fa-info-circle"></i> ${diseaseInfo.description || 'No description available'}</p>
-                    </div>
-                    
-                    ${diseaseInfo.symptoms ? `
-                        <div class="section-title">
-                            <i class="fas fa-exclamation-triangle"></i> Common Symptoms:
-                        </div>
-                        ${diseaseInfo.symptoms.map(s => `<div class="treatment-item">${s}</div>`).join('')}
                     ` : ''}
-                    
-                    ${!isHealthy ? `
-                        <div class="section-title" style="margin-top: 15px;">
-                            <i class="fas fa-pills"></i> Recommended Treatments:
+                </h2>
+                
+                <div style="background: #F5F5F5; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid ${color};">
+                    <p><strong>Type:</strong> ${diseaseInfo.type || 'Unknown'}</p>
+                    <p><strong>Description:</strong> ${diseaseInfo.description || 'No description available'}</p>
+                </div>
+                
+                ${diseaseInfo.symptoms ? `
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: ${color}; margin-bottom: 10px;">
+                            <i class="fas fa-exclamation-triangle"></i> Symptoms
+                        </h4>
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #E0E0E0;">
+                            ${diseaseInfo.symptoms.map(s => `<div style="margin-bottom: 8px; padding-left: 15px; position: relative;">
+                                <span style="position: absolute; left: 0; color: ${color};">•</span>
+                                ${s}
+                            </div>`).join('')}
                         </div>
-                        <div class="treatment-item">General fungicide application</div>
-                        <div class="treatment-item">Neem oil spray (organic option)</div>
-                        <div class="treatment-item">Remove infected leaves</div>
-                        
-                        ${diseaseInfo.prevention ? `
-                            <div class="section-title" style="margin-top: 15px;">
-                                <i class="fas fa-shield-alt"></i> Prevention Tips:
-                            </div>
-                            ${diseaseInfo.prevention.map(p => `<div class="treatment-item">${p}</div>`).join('')}
-                        ` : ''}
-                    ` : `
-                        <div class="section-title" style="margin-top: 15px;">
-                            <i class="fas fa-check-circle"></i> Healthy Plant Indicators:
-                        </div>
-                        <div class="treatment-item">Vibrant green color</div>
-                        <div class="treatment-item">No spots or discoloration</div>
-                        <div class="treatment-item">Normal leaf shape and texture</div>
-                    `}
-                    
-                    <div class="action-buttons">
-                        <button class="btn" onclick="switchTab('detection')">
-                            <i class="fas fa-search"></i> Test This Disease
-                        </button>
-                        <button class="btn btn-secondary" onclick="downloadTreatmentInfo('${diseaseName}')">
-                            <i class="fas fa-download"></i> Download Info
-                        </button>
                     </div>
+                ` : ''}
+                
+                ${diseaseInfo.prevention ? `
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: ${color}; margin-bottom: 10px;">
+                            <i class="fas fa-shield-alt"></i> Prevention
+                        </h4>
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #E0E0E0;">
+                            ${diseaseInfo.prevention.map(p => `<div style="margin-bottom: 8px; padding-left: 15px; position: relative;">
+                                <span style="position: absolute; left: 0; color: ${color};">•</span>
+                                ${p}
+                            </div>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                <div class="action-buttons" style="margin-top: 20px;">
+                    <button class="btn" onclick="testThisDisease('${diseaseName}')" style="flex: 1;">
+                        <i class="fas fa-search"></i> Test This Disease
+                    </button>
+                    <button class="btn btn-secondary" onclick="downloadTreatmentInfo('${diseaseName}')" style="flex: 1;">
+                        <i class="fas fa-download"></i> Download Info
+                    </button>
                 </div>
             `;
             
-            // Show in results section
-            elements.resultsContent.innerHTML = detailHtml;
-            switchTab('detection');
-            showNotification(`Showing details for ${diseaseName}`, 'info');
+            elements.modalContent.innerHTML = modalHtml;
+            elements.diseaseModal.classList.add('active');
         }
         
-        async function viewDiseaseDetails(diseaseName) {
-            try {
-                const response = await fetch(`/api/disease/${encodeURIComponent(diseaseName)}`);
-                const data = await response.json();
-                
-                if (data.status === 'success') {
-                    const disease = data.disease;
-                    const isHealthy = diseaseName === 'Health';
-                    
-                    // Create a detailed view
-                    let detailHtml = `
-                        <div class="disease-card">
-                            <div class="disease-name">
-                                <i class="${isHealthy ? 'fas fa-heart' : 'fas fa-disease'}"></i> ${diseaseName}
-                                <span style="font-size: 0.9rem; background: rgba(255,255,255,0.2); 
-                                       color: white; padding: 3px 10px; border-radius: 15px; margin-left: 10px;">
-                                    ${disease.type || 'Unknown'}
-                                </span>
-                            </div>
-                            
-                            <div class="info-box">
-                                <p><i class="fas fa-info-circle"></i> ${disease.description || 'No description available'}</p>
-                            </div>
-                    `;
-                    
-                    if (disease.symptoms && disease.symptoms.length > 0) {
-                        detailHtml += `
-                            <div class="section-title">
-                                <i class="fas fa-exclamation-triangle"></i> Symptoms:
-                            </div>
-                            ${disease.symptoms.map(s => `<div class="treatment-item">${s}</div>`).join('')}
-                        `;
-                    }
-                    
-                    if (disease.chemical_control && disease.chemical_control.length > 0) {
-                        detailHtml += `
-                            <div class="section-title" style="margin-top: 15px;">
-                                <i class="fas fa-pills"></i> Chemical Control:
-                            </div>
-                            ${disease.chemical_control.map(c => `<div class="treatment-item">${c}</div>`).join('')}
-                        `;
-                    }
-                    
-                    detailHtml += `
-                            <div class="action-buttons">
-                                <button class="btn" onclick="switchTab('detection')">
-                                    <i class="fas fa-search"></i> Test This Disease
-                                </button>
-                                <button class="btn btn-secondary" onclick="downloadTreatmentInfo('${diseaseName}')">
-                                    <i class="fas fa-download"></i> Download Info
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    
-                    elements.resultsContent.innerHTML = detailHtml;
-                    switchTab('detection');
-                }
-            } catch (error) {
-                console.error('Error loading disease details from API:', error);
-                // Fallback to local data
-                showDiseaseDetailsModal(diseaseName);
-            }
+        function closeModal() {
+            elements.diseaseModal.classList.remove('active');
+        }
+        
+        function testThisDisease(diseaseName) {
+            closeModal();
+            showNotification(`Testing for ${diseaseName} - please upload an image`, 'info');
+            switchTab('detection');
         }
         
         // Prevention guide
         async function loadPreventionGuide() {
             try {
+                showNotification('Loading prevention guide...', 'info');
+                
                 // Simulate API call
                 const guide = {
                     general_prevention: [
@@ -1846,32 +2017,39 @@
                         'Use disease-resistant varieties when available',
                         'Practice crop rotation in orchards',
                         'Keep the area clean of fallen leaves and debris',
-                        'Sanitize pruning tools between uses'
+                        'Sanitize pruning tools between uses',
+                        'Apply preventive fungicides during high-risk periods',
+                        'Monitor weather conditions for disease-favorable environments',
+                        'Maintain proper soil pH and nutrition'
                     ],
                     seasonal_schedule: {
                         'spring': [
                             'Apply dormant oil sprays before bud break',
                             'Remove and destroy overwintering infected material',
                             'Begin regular fungicide applications if needed',
-                            'Monitor for early disease symptoms'
+                            'Monitor for early disease symptoms',
+                            'Prune trees for better air circulation'
                         ],
                         'summer': [
                             'Continue regular monitoring',
                             'Apply fungicides according to schedule',
                             'Remove infected leaves promptly',
-                            'Maintain proper irrigation'
+                            'Maintain proper irrigation',
+                            'Control insect vectors'
                         ],
                         'fall': [
                             'Clean up fallen leaves and fruit',
                             'Apply final fungicide applications',
                             'Prepare plants for winter',
-                            'Record disease occurrences for next year'
+                            'Record disease occurrences for next year',
+                            'Apply urea to fallen leaves to speed decomposition'
                         ],
                         'winter': [
                             'Prune dormant trees',
                             'Apply dormant sprays',
                             'Plan for next season',
-                            'Review and order disease-resistant varieties'
+                            'Review and order disease-resistant varieties',
+                            'Repair and maintain equipment'
                         ]
                     },
                     disease_specific: {
@@ -1880,7 +2058,8 @@
                                 'Remove infected plant material',
                                 'Improve air circulation',
                                 'Use preventative fungicides',
-                                'Avoid overhead watering'
+                                'Avoid overhead watering',
+                                'Use resistant varieties when available'
                             ]
                         },
                         'Brown spot': {
@@ -1888,7 +2067,8 @@
                                 'Plant resistant varieties',
                                 'Space plants properly',
                                 'Apply fungicides early',
-                                'Remove fallen leaves'
+                                'Remove fallen leaves',
+                                'Maintain tree vigor'
                             ]
                         },
                         'Frogeye leaf spot': {
@@ -1896,7 +2076,8 @@
                                 'Prune infected branches',
                                 'Apply fungicides during growing season',
                                 'Remove fallen leaves',
-                                'Improve tree health'
+                                'Improve tree health',
+                                'Remove wild apple trees nearby'
                             ]
                         },
                         'Grey spot': {
@@ -1904,7 +2085,8 @@
                                 'Avoid dense planting',
                                 'Use preventative fungicides',
                                 'Remove infected leaves',
-                                'Maintain plant vigor'
+                                'Maintain plant vigor',
+                                'Improve air circulation'
                             ]
                         },
                         'Powdery mildew': {
@@ -1912,7 +2094,8 @@
                                 'Plant in sunny locations',
                                 'Improve air circulation',
                                 'Use resistant varieties',
-                                'Apply sulfur-based fungicides'
+                                'Apply sulfur-based fungicides',
+                                'Avoid excessive nitrogen fertilization'
                             ]
                         },
                         'Rust': {
@@ -1920,7 +2103,8 @@
                                 'Remove alternate hosts',
                                 'Apply fungicides',
                                 'Space plants properly',
-                                'Use resistant cultivars'
+                                'Use resistant cultivars',
+                                'Monitor for early symptoms'
                             ]
                         },
                         'Scab': {
@@ -1928,60 +2112,90 @@
                                 'Remove fallen leaves',
                                 'Apply fungicides in spring',
                                 'Use resistant cultivars',
-                                'Prune for air circulation'
+                                'Prune for air circulation',
+                                'Monitor leaf wetness periods'
                             ]
                         }
                     }
                 };
                 
                 let html = `
-                    <div style="background: #e8f5e9; padding: 25px; border-radius: 15px; margin-bottom: 25px;">
-                        <h3 style="margin-bottom: 15px; color: #2e7d32;">
+                    <div style="margin-bottom: 25px;">
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">
                             <i class="fas fa-lightbulb"></i> General Prevention Tips
                         </h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                            ${guide.general_prevention.map(item => `
-                                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
-                                    <div class="treatment-item">${item}</div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                            ${guide.general_prevention.map((item, index) => `
+                                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <div style="display: flex; align-items: start; gap: 10px;">
+                                        <span style="background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0;">
+                                            ${index + 1}
+                                        </span>
+                                        <div>${item}</div>
+                                    </div>
                                 </div>
                             `).join('')}
                         </div>
                     </div>
                     
-                    <h3 style="margin-bottom: 15px; color: #2c3e50;">
-                        <i class="fas fa-calendar-alt"></i> Seasonal Management
-                    </h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px;">
+                    <div style="margin-bottom: 25px;">
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">
+                            <i class="fas fa-calendar-alt"></i> Seasonal Management
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 `;
                 
                 for (const [season, tips] of Object.entries(guide.seasonal_schedule)) {
+                    const seasonColors = {
+                        'spring': '#4CAF50',
+                        'summer': '#FF9800',
+                        'fall': '#795548',
+                        'winter': '#2196F3'
+                    };
+                    
                     html += `
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; border: 2px solid #e9ecef;">
-                            <h4 style="color: #4CAF50; margin-bottom: 10px;">${season.charAt(0).toUpperCase() + season.slice(1)}</h4>
-                            ${tips.map(tip => `<div class="treatment-item">${tip}</div>`).join('')}
+                        <div style="background: white; padding: 20px; border-radius: 10px; border: 2px solid ${seasonColors[season]}; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                            <h4 style="color: ${seasonColors[season]}; margin-bottom: 10px; text-transform: capitalize;">
+                                <i class="fas fa-${season === 'spring' ? 'seedling' : season === 'summer' ? 'sun' : season === 'fall' ? 'leaf' : 'snowflake'}"></i> ${season}
+                            </h4>
+                            ${tips.map(tip => `
+                                <div style="margin-bottom: 8px; padding-left: 15px; position: relative;">
+                                    <span style="position: absolute; left: 0; color: ${seasonColors[season]};">•</span>
+                                    ${tip}
+                                </div>
+                            `).join('')}
                         </div>
                     `;
                 }
                 
                 html += `
+                        </div>
                     </div>
                     
-                    <h3 style="margin-bottom: 15px; color: #2c3e50;">
-                        <i class="fas fa-bug"></i> Disease-Specific Prevention
-                    </h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div>
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">
+                            <i class="fas fa-bug"></i> Disease-Specific Prevention
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
                 `;
                 
                 for (const [disease, info] of Object.entries(guide.disease_specific)) {
+                    const diseaseColor = disease === 'Health' ? '#4CAF50' : '#f44336';
+                    
                     html += `
-                        <div style="background: white; padding: 20px; border-radius: 10px; border: 2px solid #e9ecef; 
+                        <div style="background: white; padding: 20px; border-radius: 10px; border: 2px solid #E0E0E0; 
                              box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-                            <h4 style="color: #f44336; margin-bottom: 10px;">${disease}</h4>
+                            <h4 style="color: ${diseaseColor}; margin-bottom: 10px;">${disease}</h4>
                             <div style="font-size: 0.9rem; color: #666;">
-                                ${info.key_prevention.map(item => `<div class="treatment-item">${item}</div>`).join('')}
+                                ${info.key_prevention.map(item => `
+                                    <div style="margin-bottom: 8px; padding-left: 15px; position: relative;">
+                                        <span style="position: absolute; left: 0; color: ${diseaseColor};">•</span>
+                                        ${item}
+                                    </div>
+                                `).join('')}
                             </div>
-                            <button class="btn" style="margin-top: 15px; width: 100%;" 
-                                    onclick="switchToDiseaseTab('${disease}')">
+                            <button class="btn" style="margin-top: 15px; width: 100%; background: ${diseaseColor};" 
+                                    onclick="showDiseaseDetailsModal('${disease}')">
                                 <i class="fas fa-info-circle"></i> View Full Guide
                             </button>
                         </div>
@@ -1991,6 +2205,8 @@
                 html += '</div>';
                 elements.preventionContent.innerHTML = html;
                 
+                showNotification('Prevention guide loaded successfully', 'success');
+                
             } catch (error) {
                 console.error('Error loading prevention guide:', error);
                 elements.preventionContent.innerHTML = `
@@ -1998,20 +2214,30 @@
                         <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ff9800; margin-bottom: 20px;"></i>
                         <h3>Error Loading Prevention Guide</h3>
                         <p>Please try again later or check the diseases tab.</p>
+                        <button class="btn" onclick="loadPreventionGuide()" style="margin-top: 20px;">
+                            <i class="fas fa-sync"></i> Retry
+                        </button>
                     </div>
                 `;
             }
         }
         
-        // New function to switch to disease tab when viewing full guide
-        function switchToDiseaseTab(diseaseName) {
-            // Switch to diseases tab first
-            switchTab('diseases');
-            
-            // Then show the specific disease details
-            setTimeout(() => {
-                showDiseaseDetailsModal(diseaseName);
-            }, 300);
+        function showSeasonalGuide() {
+            // Focus on seasonal guide section
+            const seasonalSection = elements.preventionContent.querySelector('h3:nth-child(2)');
+            if (seasonalSection) {
+                seasonalSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            showNotification('Showing seasonal management guide', 'info');
+        }
+        
+        function showGeneralPrevention() {
+            // Focus on general prevention section
+            const generalSection = elements.preventionContent.querySelector('h3:first-child');
+            if (generalSection) {
+                generalSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            showNotification('Showing general prevention tips', 'info');
         }
         
         // Report generation
@@ -2042,20 +2268,16 @@ ${state.currentDetection.treatment.description}
 Treatment Recommendations:
 -------------------------
 Chemical Treatments:
-${state.currentDetection.treatment.chemical_treatments ? state.currentDetection.treatment.chemical_treatments.map(t => `• ${t}`).join('
-') : '• No specific chemical treatments recommended'}
+${state.currentDetection.treatment.chemical_treatments ? state.currentDetection.treatment.chemical_treatments.map(t => `• ${t}`).join('\n') : '• No specific chemical treatments recommended'}
 
 Organic Treatments:
-${state.currentDetection.treatment.organic_treatments ? state.currentDetection.treatment.organic_treatments.map(t => `• ${t}`).join('
-') : '• No specific organic treatments recommended'}
+${state.currentDetection.treatment.organic_treatments ? state.currentDetection.treatment.organic_treatments.map(t => `• ${t}`).join('\n') : '• No specific organic treatments recommended'}
 
 Preventive Measures:
-${state.currentDetection.treatment.preventive_measures ? state.currentDetection.treatment.preventive_measures.map(m => `• ${m}`).join('
-') : '• No specific preventive measures'}
+${state.currentDetection.treatment.preventive_measures ? state.currentDetection.treatment.preventive_measures.map(m => `• ${m}`).join('\n') : '• No specific preventive measures'}
 
 Cultural Practices:
-${state.currentDetection.treatment.cultural_practices ? state.currentDetection.treatment.cultural_practices.map(p => `• ${p}`).join('
-') : '• No specific cultural practices'}
+${state.currentDetection.treatment.cultural_practices ? state.currentDetection.treatment.cultural_practices.map(p => `• ${p}`).join('\n') : '• No specific cultural practices'}
 
 Report Generated: ${new Date().toLocaleString()}
 Apple Leaf Disease Detection System v3.2
@@ -2076,36 +2298,27 @@ Apple Leaf Disease Detection System v3.2
                 return;
             }
             
-            let allReports = 'COMPLETE DETECTION HISTORY REPORT
-';
-            allReports += '='.repeat(50) + '
-
-';
-            allReports += `Generated: ${new Date().toLocaleString()}
-`;
-            allReports += `Total Detections: ${state.detectionHistory.length}
-`;
-            allReports += '='.repeat(50) + '
-
-';
+            let allReports = 'COMPLETE DETECTION HISTORY REPORT\n';
+            allReports += '='.repeat(50) + '\n\n';
+            allReports += `Generated: ${new Date().toLocaleString()}\n`;
+            allReports += `Total Detections: ${state.detectionHistory.length}\n`;
+            allReports += '='.repeat(50) + '\n\n';
             
             state.detectionHistory.forEach((item, index) => {
-                allReports += `REPORT ${index + 1}: ${item.disease}
-`;
-                allReports += `Date: ${new Date(item.timestamp).toLocaleDateString()}
-`;
-                allReports += `Confidence: ${item.confidence.toFixed(1)}%
-`;
-                allReports += `Severity: ${item.severity.toUpperCase()}
-`;
-                allReports += '-'.repeat(30) + '
-
-';
+                allReports += `REPORT ${index + 1}: ${item.disease}\n`;
+                allReports += `Date: ${new Date(item.timestamp).toLocaleDateString()}\n`;
+                allReports += `Confidence: ${item.confidence.toFixed(1)}%\n`;
+                allReports += `Severity: ${item.severity.toUpperCase()}\n`;
+                allReports += '-'.repeat(30) + '\n\n';
             });
             
             elements.reportContent.textContent = allReports;
             switchTab('reports');
             showNotification('All reports generated', 'success');
+        }
+        
+        function showReportHelp() {
+            showNotification('Generate current report from last detection, or all reports from history', 'info');
         }
         
         function printReport() {
@@ -2168,11 +2381,14 @@ Apple Leaf Disease Detection System v3.2
         
         function enhanceImage() {
             showNotification('Image enhancement feature coming soon!', 'info');
+            // In a real implementation, this would send the image to an enhancement API
         }
         
         function saveDetection() {
             if (state.currentDetection) {
                 showNotification('Detection saved to history', 'success');
+            } else {
+                showNotification('No detection to save', 'warning');
             }
         }
         
@@ -2225,14 +2441,10 @@ Description:
 ${diseaseInfo?.description || 'N/A'}
 
 Symptoms:
-${diseaseInfo?.symptoms ? diseaseInfo.symptoms.map(s => `• ${s}`).join('
-') : '• No specific symptoms listed'}
+${diseaseInfo?.symptoms ? diseaseInfo.symptoms.map(s => `• ${s}`).join('\n') : '• No specific symptoms listed'}
 
 Prevention Tips:
-${diseaseInfo?.prevention ? diseaseInfo.prevention.map(p => `• ${p}`).join('
-') : '• Regular monitoring
-• Proper sanitation
-• Adequate spacing'}
+${diseaseInfo?.prevention ? diseaseInfo.prevention.map(p => `• ${p}`).join('\n') : '• Regular monitoring\n• Proper sanitation\n• Adequate spacing'}
 
 Recommended Treatments:
 • General fungicide application
@@ -2265,12 +2477,10 @@ Apple Leaf Disease Detection System v3.2
             }
             
             const csvContent = "data:text/csv;charset=utf-8," 
-                + "ID,Disease,Confidence,Severity,Timestamp,Image
-"
+                + "ID,Disease,Confidence,Severity,Timestamp,Image\n"
                 + state.detectionHistory.map(item => 
                     `${item.id},${item.disease},${item.confidence},"${item.severity}","${item.timestamp}",${item.imageName}`
-                ).join("
-");
+                ).join("\n");
             
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
@@ -2297,6 +2507,8 @@ Apple Leaf Disease Detection System v3.2
             
             // Update UI stats
             updateUIStats();
+            
+            showNotification('Statistics updated', 'success');
         }
         
         function updateUIStats() {
@@ -2309,21 +2521,32 @@ Apple Leaf Disease Detection System v3.2
             document.getElementById('statCameraSupport').textContent = hasCamera ? 'Yes' : 'No';
         }
         
+        function updateModelStatus() {
+            document.getElementById('modelStatus').textContent = 'Ready';
+            document.getElementById('modelStatus').style.color = '#4CAF50';
+        }
+        
+        function showDetailedStats() {
+            showNotification('Detailed statistics feature coming soon!', 'info');
+        }
+        
         async function checkAPIStatus() {
             try {
                 const response = await fetch('/api/health');
                 const data = await response.json();
                 if (data.status === 'healthy') {
                     document.getElementById('systemStatus').textContent = 'Online';
+                    document.getElementById('systemStatus').style.color = '#4CAF50';
                     document.getElementById('apiStatus').textContent = 'Connected';
-                    showNotification('API connected successfully', 'success');
+                    document.getElementById('apiStatus').style.color = '#4CAF50';
                     return true;
                 }
             } catch (error) {
                 console.error('API connection error:', error);
                 document.getElementById('systemStatus').textContent = 'Offline';
+                document.getElementById('systemStatus').style.color = '#f44336';
                 document.getElementById('apiStatus').textContent = 'Disconnected';
-                showNotification('API disconnected. Using offline mode.', 'warning');
+                document.getElementById('apiStatus').style.color = '#f44336';
                 return false;
             }
         }
@@ -2378,7 +2601,7 @@ Apple Leaf Disease Detection System v3.2
         function saveState() {
             try {
                 localStorage.setItem('appleDetectionHistory', JSON.stringify(state.detectionHistory));
-                // console.log('State saved successfully');
+                // Auto-save every 30 seconds
             } catch (error) {
                 console.error('Error saving state:', error);
             }
@@ -2390,6 +2613,20 @@ Apple Leaf Disease Detection System v3.2
                 state.cameraStream.getTracks().forEach(track => track.stop());
             }
             saveState();
+        });
+        
+        // Close modal on outside click
+        window.addEventListener('click', (event) => {
+            if (event.target === elements.diseaseModal) {
+                closeModal();
+            }
+        });
+        
+        // Close modal on ESC key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && elements.diseaseModal.classList.contains('active')) {
+                closeModal();
+            }
         });
     </script>
 </body>
